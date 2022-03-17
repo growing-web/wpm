@@ -90,6 +90,8 @@ export default async () => {
 
   await generator.install(Object.keys(unsolved));
   await write('importmap.json', generator.getMap());
-  singleLineLog(`importmap.json created!`);
+  
+  singleLineLog('');
   singleLineLog.clear();
+  console.log('[WPM] importmap.json created!');
 }
