@@ -5,7 +5,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "example": "wpm install"
+    "example": "wpm install --force"
   },
   "devDependencies": {
     "@growing-web-examples/wpm": "workspace:*"

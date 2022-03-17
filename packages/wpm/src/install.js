@@ -2,7 +2,7 @@ import * as dancf from '@growing-web/dancf-provider';
 import jsonSchemaRefParser from 'json-schema-ref-parser';
 // import { createRequire } from 'module';
 import { read, write } from './utils.js';
-import { Generator } from '@jspm/generator';
+import { Generator, clearCache } from '@jspm/generator';
 import { resolve } from 'path';
 import { cwd } from 'process';
 import { stdout as singleLineLog } from 'single-line-log';
@@ -54,7 +54,8 @@ const parseDependencies = input => {
   return { resolved, unsolved };
 };
 
-export default async () => {
+export default async (options) => {
+  const { force } = options;
   const config = 'web-module.json';
   const devConfig = 'web-module.dev.json';
   const json = await jsonSchemaRefParser.dereference(resolve(cwd(), config));
@@ -65,6 +66,10 @@ export default async () => {
       const devJson = await jsonSchemaRefParser.dereference(resolve(cwd(), devConfig));
       merge(json, devJson);
     } catch (error) { }
+  }
+
+  if (force) {
+    clearCache();
   }
 
   const { defaultProvider, providers, env, dependencies } = json; 

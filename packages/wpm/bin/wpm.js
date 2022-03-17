@@ -16,6 +16,7 @@ program
 program
   .command('install')
   .alias('i')
+  .option('-f, --force', 'Force install')
   .passThroughOptions()
   .allowUnknownOption()
   .action(install);

@@ -5,7 +5,7 @@
 ## 安装
 
 ```bash
-npm install -g @growing-web-examples/wpm
+npm install -g @growing-web/wpm
 ```
 
 ## 指南
@@ -46,7 +46,7 @@ wpm install
 }
 ```
 
-### 与本地依赖保持一致
+### 使用本地依赖
 
 ```json
 {
@@ -78,7 +78,7 @@ wpm install
 
 内部将使用 `Object.assign(...dependencies)` 进行合并，因此右边的优先级高于左边。
 
-### 工作空间模块
+### 使用工作空间
 
 ```json
 {
@@ -149,4 +149,10 @@ wpm 会忽略 `https:` 定义的远程模块，它不会去解析它。
     "react": "^17.0.2"
   }]
 }
+```
+
+## 禁用缓存
+
+```bash
+wpm install --force
 ```
