@@ -14,7 +14,7 @@ const parseDependencies = input => {
   const unsolved = {};
   const dependencies = Array.isArray(input) ? Object.assign(...input) : input;
   
-  const protocolRegEx = /^(.*:)(.*)$/;
+  const protocolRegEx = /^([^:]*:)(.*)$/;
   const exactPkgRegEx = /^((?:@[^/\\%@]+\/)?[^./\\%@][^/\\%@]*)@([^\/]+)(\/.*)?$/;
 
   for (const [key, value] of Object.entries(dependencies)) {
