@@ -1,0 +1,19 @@
+{
+  "name": "root",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "example": "wpm install"
+  },
+  "devDependencies": {
+    "@growing-web-examples/wpm": "workspace:*"
+  },
+  "dependencies": {
+    "test": "workspace:*",
+    "react": "^17.0.2"
+  },
+  "author": "aui",
+  "license": "MIT"
+}
