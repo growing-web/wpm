@@ -1,4 +1,5 @@
 import * as dancf from '@growing-web/dancf-provider';
+import merge from 'lodash.merge';
 import jsonSchemaRefParser from 'json-schema-ref-parser';
 // import { createRequire } from 'module';
 import { read, write } from './utils.js';
