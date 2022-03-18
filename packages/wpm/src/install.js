@@ -9,50 +9,48 @@ import { cwd } from 'process';
 import { stdout as singleLineLog } from 'single-line-log';
 
 // const require = createRequire(import.meta.url);
-const parseDependencies = input => {
-  const resolved = {};
-  const unsolved = {};
+const parseDependencies = async input => {
+  const install = [];
   const dependencies = Array.isArray(input) ? Object.assign(...input) : input;
-  
-  const protocolRegEx = /^([^:]*:)(.*)$/;
-  const exactPkgRegEx = /^((?:@[^/\\%@]+\/)?[^./\\%@][^/\\%@]*)@([^\/]+)(\/.*)?$/;
+  const exactPkgRegEx = /^(?:([a-z]+):)?(?:(@?[^@]+)@)?(.*)?$/;
 
-  for (const [key, value] of Object.entries(dependencies)) {
-    const [, protocol, argv] = value.match(protocolRegEx) || [];
+  for (const [name, value] of Object.entries(dependencies)) {
+    let [, registry, alias, range] = value.match(exactPkgRegEx) || [];
+    // @see: https://pnpm.io/workspaces
+    if (registry === 'workspace') {
+      registry = 'npm';
+      if (range === '*') {
+        // dependencies[name] = `file://${cwd()}/node_modules/${name}`;
+        const packageJson = `./node_modules/${name}/package.json`;
+        range = await read(packageJson).then(({ version }) => {
+          if (typeof version !== 'string') {
+            throw new Error(`Resolve workspace error: ${packageJson}: The 'version' attribute was not found`);
+          }
+          return version;
+        }, error => {
+          error.message = `Resolve workspace error: Description Failed to parse the workspace protocol: ${error.message}`;
+          throw error;
+        });
+      }
+    }
 
-    switch (protocol) {
-      // @see: https://pnpm.io/workspaces
-      case 'workspace:':
-        if (argv === '*') {
-          // dependencies[key] = `file://${cwd()}/node_modules/${key}`;
-          try {
-            // const dir = require.resolve(key);
-            // const pjson = read(`${dir}/package.json`);
-            const pjson = read(`./node_modules/${key}/package.json`);
-            const version = pjson.dependencies?.[key] || pjson.peerDependencies?.[key] || pjson.optionalDependencies?.[key];
-            unsolved[key] = version;
-          } catch (error) {
-            error.message = `Description Failed to parse the workspace protocol: ${error.message}`;
-            throw error;
-          }
-        } else {
-          const [, name, version] = workspace.match(exactPkgRegEx) || [];
-          if (name) {
-            throw new Error(`Workspace aliases are not supported: ${value}`);
-          }
-          unsolved[key] = version;
-        }
-        break;
-      case 'http:':
-      case 'https:':
-        resolved[key] = value;
-        break;
-      default:
-        unsolved[key] = value;
+    if (!registry || registry === 'npm') {
+      const sRange = range ? `@${range}` : range;
+      const sName = alias ? alias : name;
+      const sAlias = alias ? name : undefined;
+      install.push({
+        target: `${sName}${sRange}`,
+        alias: sAlias
+      });
+    } else {
+      install.push({
+        target: `${value}`,
+        alias: name
+      });
     }
   }
 
-  return { resolved, unsolved };
+  return install;
 };
 
 export default async (options) => {
@@ -60,7 +58,7 @@ export default async (options) => {
   const config = 'web-module.json';
   const devConfig = 'web-module.dev.json';
   const json = await jsonSchemaRefParser.dereference(resolve(cwd(), config));
-  const isDevelopment = process.env.NODE_ENV === 'development';
+  const isDevelopment = process.env.NODE_ENV !== 'production';
 
   if (isDevelopment) {
     try {
@@ -73,16 +71,16 @@ export default async (options) => {
     clearCache();
   }
 
-  const { defaultProvider, providers, env, dependencies } = json; 
-  const { resolved, unsolved } = parseDependencies(dependencies);
+  const { defaultProvider, providers, env, dependencies, resolutions } = json; 
+  const install = await parseDependencies(dependencies);
   const generator = new Generator({
     defaultProvider,
     providers,
     customProviders: { dancf },
-    env,
-    resolutions: unsolved,
+    env: env || [isDevelopment ? 'development' : 'production', 'browser', 'module'],
+    resolutions,
     inputMap: {
-      imports: resolved
+      imports: {}
     }
   });
 
@@ -94,7 +92,7 @@ export default async (options) => {
     }
   })();
 
-  await generator.install(Object.keys(unsolved));
+  await generator.install(install);
   await write('importmap.json', generator.getMap());
   
   singleLineLog('');

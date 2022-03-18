@@ -1,18 +1,18 @@
 {
-  "name": "root",
+  "name": "@growing-web-examples/wpm-config",
   "version": "1.0.0",
   "description": "",
   "type": "module",
-  "private": true,
   "scripts": {
     "example": "export NODE_ENV=development && wpm install --force"
   },
   "devDependencies": {
-    "@growing-web-examples/wpm": "workspace:*"
+    "@growing-web/wpm": "workspace:*"
   },
   "dependencies": {
-    "test": "workspace:*",
-    "react": "^17.0.2"
+    "@growing-web-examples/wpm-test": "workspace:*",
+    "react": "^16.0.2",
+    "react17": "npm:react@17.0.2"
   },
   "author": "aui",
   "license": "MIT"

@@ -18,7 +18,6 @@ npm install -g @growing-web/wpm
 {
   "defaultProvider": "dancf",
   "providers": {},
-  "env": ["production", "browser", "module"],
   "dependencies": {
     "react": "^17.0.2"
   }
@@ -52,7 +51,6 @@ wpm install
 {
   "defaultProvider": "dancf",
   "providers": {},
-  "env": ["production", "browser", "module"],
   "dependencies": {
     "$ref": "./package.json#/dependencies"
   }
@@ -67,7 +65,6 @@ wpm install
 {
   "defaultProvider": "dancf",
   "providers": {},
-  "env": ["production", "browser", "module"],
   "dependencies": [{
     "$ref": "./package.json#/dependencies"
   }, {
@@ -84,7 +81,6 @@ wpm install
 {
   "defaultProvider": "dancf",
   "providers": {},
-  "env": ["production", "browser", "module"],
   "dependencies": {
     "test": "workspace:*"
   }
@@ -92,21 +88,6 @@ wpm install
 ```
 
 `workspace:*` 协议可以根据工作空间内的本地包来确定版本号，也就是说 wpm 安装的时候会最终读取工作空间对应的包的版本号来工作。
-
-### 固定远程模块
-
-```json
-{
-  "defaultProvider": "dancf",
-  "providers": {},
-  "env": ["production", "browser", "module"],
-  "dependencies": {
-    "vue": "https://cdn.com/vue.js"
-  }
-}
-```
-
-wpm 会忽略 `https:` 定义的远程模块，它不会去解析它。
 
 ### 切换 CDN
 
@@ -116,16 +97,12 @@ wpm 会忽略 `https:` 定义的远程模块，它不会去解析它。
 
 通常情况下将使用 CDN 而不是 `nodemodules` 来管理模块，如果需要单独调试某个包，可以将其映射到本地来。
 
-首先，创建 `web-module.dev.json` 文件，并且设置环境变量 `NODE_ENV` 为 `development`。
-
-
 将所有模块映射到本地：
 
 ```json
 {
   "defaultProvider": "nodemodules",
   "providers": {},
-  "env": ["production", "browser", "module"],
   "dependencies": [{
     "$ref": "./package.json#/dependencies"
   }, {
@@ -142,7 +119,6 @@ wpm 会忽略 `https:` 定义的远程模块，它不会去解析它。
   "providers": {
     "react": "nodemodules"
   },
-  "env": ["production", "browser", "module"],
   "dependencies": [{
     "$ref": "./package.json#/dependencies"
   }, {

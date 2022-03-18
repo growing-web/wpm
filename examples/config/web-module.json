@@ -1,10 +1,10 @@
 {
   "defaultProvider": "dancf",
-  "providers": {},
+  "providers": {
+    "@growing-web-examples/wpm-test": "nodemodules"
+  },
   "env": ["production", "browser", "module"],
   "dependencies": [{
     "$ref": "./package.json#/dependencies"
-  }, {
-    "hello": "https://google.com/hello.js"
   }]
 }

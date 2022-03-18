@@ -1,6 +1,7 @@
 {
-  "name": "test",
+  "name": "@growing-web-examples/wpm-test",
   "main": "./test.js",
   "exports": "./test.js",
-  "version": "0.3.4"
+  "imports": {},
+  "version": "0.5.0"
 }

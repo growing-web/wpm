@@ -10,16 +10,18 @@ importers:
       prettier: 2.6.0
       turbo: 1.1.6
 
-  examples/root:
+  examples/config:
     specifiers:
-      '@growing-web-examples/wpm': workspace:*
-      react: ^17.0.2
-      test: workspace:*
+      '@growing-web-examples/wpm-test': workspace:*
+      '@growing-web/wpm': workspace:*
+      react: ^16.0.2
+      react17: npm:react@17.0.2
     dependencies:
-      react: 17.0.2
-      test: link:../test
+      '@growing-web-examples/wpm-test': link:../test
+      react: 16.14.0
+      react17: /react/17.0.2
     devDependencies:
-      '@growing-web-examples/wpm': link:../../packages/wpm
+      '@growing-web/wpm': link:../../packages/wpm
 
   examples/test:
     specifiers: {}
@@ -2101,6 +2103,14 @@ packages:
       retry: 0.12.0
     dev: false
 
+  /prop-types/15.8.1:
+    resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+      react-is: 16.13.1
+    dev: false
+
   /protobufjs/6.11.2:
     resolution: {integrity: sha512-4BQJoPooKJl2G9j3XftkIXjoC9C0Av2NOrWmbLWT1vH32GcSUHjM0Arra6UfTsVyfMAuFzaLucXn1sadxJydAw==}
     hasBin: true
@@ -2131,10 +2141,23 @@ packages:
       safe-buffer: 5.2.1
     dev: true
 
+  /react-is/16.13.1:
+    resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
+    dev: false
+
   /react-native-fetch-api/2.0.0:
     resolution: {integrity: sha512-GOA8tc1EVYLnHvma/TU9VTgLOyralO7eATRuCDchQveXW9Fr9vXygyq9iwqmM7YRZ8qRJfEt9xOS7OYMdJvRFw==}
     dependencies:
       p-defer: 3.0.0
+
+  /react/16.14.0:
+    resolution: {integrity: sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g==}
+    engines: {node: '>=0.10.0'}
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+      prop-types: 15.8.1
+    dev: false
 
   /react/17.0.2:
     resolution: {integrity: sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==}

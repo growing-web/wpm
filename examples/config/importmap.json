@@ -1,0 +1,12 @@
+{
+  "imports": {
+    "@growing-web-examples/wpm-test": "./node_modules/@growing-web-examples/wpm-test/test.js",
+    "react": "https://es.dancf.com/npm:react@17.0.2/index.js",
+    "react17": "https://es.dancf.com/npm:react@17.0.2/index.js"
+  },
+  "scopes": {
+    "https://es.dancf.com/": {
+      "object-assign": "https://es.dancf.com/npm:object-assign@4.1.1/index.js"
+    }
+  }
+}
