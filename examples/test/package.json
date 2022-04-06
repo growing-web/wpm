@@ -1,7 +1,20 @@
 {
   "name": "@growing-web-examples/wpm-test",
   "main": "./test.js",
-  "exports": "./test.js",
-  "imports": {},
-  "version": "0.5.0"
+  "exports": {
+    "development": {
+      "require": "./test.dev.js",
+      "import": "./test.dev.mjs"
+    },
+    "production": {
+      "require": "./test.js",
+      "import": "./test.mjs"
+    },
+    "default": "./index.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "version": "0.6.4",
+  "dependencies": {}
 }

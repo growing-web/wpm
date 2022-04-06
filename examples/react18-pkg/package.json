@@ -1,0 +1,11 @@
+{
+  "name": "@growing-web-examples/react18-pkg",
+  "exports": "./index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "version": "0.0.1",
+  "dependencies": {
+    "react": "^18.0.0"
+  }
+}
