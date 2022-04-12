@@ -4,15 +4,16 @@
   "description": "",
   "type": "module",
   "scripts": {
-    "example": "export NODE_ENV=development CDN_URL=https://esm-dev.dancf.com/ API_URL=https://esm-dev.dancf.com/ && wpm install --force"
+    "serve": "web-dev-server --app-index index.html",
+    "build": "wpm install"
   },
   "devDependencies": {
     "@growing-web/wpm": "workspace:*"
   },
   "dependencies": {
     "@growing-web-examples/wpm-test": "workspace:*",
-    "react": "^16.0.2",
-    "react17": "npm:react@17.0.2"
+    "@growing-web-examples/react17-pkg": "workspace:*",
+    "@growing-web-examples/react18-pkg": "workspace:*"
   },
   "author": "aui",
   "license": "MIT"

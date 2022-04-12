@@ -1,4 +1,5 @@
 import * as dancf from '@growing-web/dancf-provider';
+import { stat } from 'fs/promises';
 import merge from 'lodash.merge';
 import jsonSchemaRefParser from 'json-schema-ref-parser';
 // import { createRequire } from 'module';
@@ -44,7 +45,7 @@ const parseDependencies = async input => {
       });
     } else {
       install.push({
-        target: `${value}`,
+        target: value,
         alias: name
       });
     }
@@ -57,10 +58,11 @@ export default async (options) => {
   const { force } = options;
   const config = 'web-module.json';
   const devConfig = 'web-module.dev.json';
-  const json = await jsonSchemaRefParser.dereference(resolve(cwd(), config));
-  const isDevelopment = process.env.NODE_ENV !== 'production';
+  const exists = await stat(config).then(stats => stats.isFile()).catch(() => false);
+  const json = exists ? await jsonSchemaRefParser.dereference(resolve(cwd(), config)) : read('package.json');
+  const nodeEnv = process.env.NODE_ENV || 'development';
 
-  if (isDevelopment) {
+  if (nodeEnv === 'development') {
     try {
       const devJson = await jsonSchemaRefParser.dereference(resolve(cwd(), devConfig));
       merge(json, devJson);
@@ -74,10 +76,11 @@ export default async (options) => {
   const { defaultProvider, providers, env, dependencies, resolutions } = json; 
   const install = await parseDependencies(dependencies);
   const generator = new Generator({
+    latest: true,
     defaultProvider,
     providers,
     customProviders: { dancf },
-    env: env || [isDevelopment ? 'development' : 'production', 'browser', 'module'],
+    env: env || [nodeEnv, 'browser', 'module'],
     resolutions,
     inputMap: {
       imports: {}

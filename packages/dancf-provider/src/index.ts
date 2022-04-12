@@ -8,9 +8,9 @@ import { ExactPackage } from "./install/package.js";
 import { fetch } from '#fetch';
 
 
-const cdnUrl = process.env.CDN_URL || 'https://es.dancf.com/';
-const systemCdnUrl = process.env.SYSTEM_CDN_URL || 'https://system.dancf.com/';
-const apiUrl = process.env.API_URL || 'https://api.jspm.io/';
+const cdnUrl = process.env.WPM_DANCF_CDN_URL || 'https://es.dancf.com/';
+const systemCdnUrl = process.env.WPM_DANCF_SYSTEM_CDN_URL || 'https://system.dancf.com/';
+const apiUrl = process.env.WPM_DANCF_API_URL || 'https://api.jspm.io/';
 
 const BUILD_POLL_TIME = 5 * 60 * 1000;
 const BUILD_POLL_INTERVAL = 5 * 1000;
