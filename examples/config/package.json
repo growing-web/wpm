@@ -4,7 +4,7 @@
   "description": "",
   "type": "module",
   "scripts": {
-    "example": "export NODE_ENV=development && wpm install --force"
+    "example": "export NODE_ENV=development CDN_URL=https://esm-dev.dancf.com/ API_URL=https://esm-dev.dancf.com/ && wpm install --force"
   },
   "devDependencies": {
     "@growing-web/wpm": "workspace:*"
