@@ -8,12 +8,13 @@
     "build": "wpm install"
   },
   "devDependencies": {
-    "@growing-web/wpm": "workspace:*"
+    "@growing-web/wpm": "workspace:*",
+    "@web/dev-server": "^0.1.30"
   },
   "dependencies": {
-    "@growing-web-examples/wpm-test": "workspace:*",
     "@growing-web-examples/react17-pkg": "workspace:*",
-    "@growing-web-examples/react18-pkg": "workspace:*"
+    "@growing-web-examples/react18-pkg": "workspace:*",
+    "@growing-web-examples/wpm-test": "workspace:*"
   },
   "author": "aui",
   "license": "MIT"

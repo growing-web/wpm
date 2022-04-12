@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <script type="importmap">
+    {
+      "imports": {
+        "@growing-web-examples/react17-pkg": "https://es.dancf.com/npm:@growing-web-examples/react17-pkg@0.0.1/index.js",
+        "@growing-web-examples/react18-pkg": "https://es.dancf.com/npm:@growing-web-examples/react18-pkg@0.0.1/index.js",
+        "@growing-web-examples/wpm-test": "https://es.dancf.com/npm:@growing-web-examples/wpm-test@0.6.4/test.js"
+      },
+      "scopes": {
+        "https://es.dancf.com/": {
+          "object-assign": "https://es.dancf.com/npm:object-assign@4.1.1/index.js",
+          "react": "https://es.dancf.com/npm:react@17.0.2/dev.index.js"
+        },
+        "https://es.dancf.com/npm:@growing-web-examples/react18-pkg@0.0.1/": {
+          "react": "https://es.dancf.com/npm:react@18.0.0/dev.index.js"
+        }
+      }
+    }
+  </script>
+  <script>
+    ;(function () {
+      if (
+        !HTMLScriptElement.supports ||
+        !HTMLScriptElement.supports('importmap')
+      ) {
+        document.head.appendChild(
+          Object.assign(document.createElement('script'), {
+            src: 'https://es.dancf.com/npm:es-module-shims@0.12.8/dist/es-module-shims.min.js',
+            crossorigin: 'anonymous',
+            async: true,
+          }),
+        )
+      }
+    })()
+  </script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Root Config</title>
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+    <script type="application/sd+json">
+      {}
+    </script>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app</noscript
+    >
+    <script type="module">
+      import '@growing-web-examples/react18-pkg'
+    </script>
+  </body>
+</html>

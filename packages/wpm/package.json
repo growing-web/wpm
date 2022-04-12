@@ -10,13 +10,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "single-line-log": "^1.1.2",
-    "json-schema-ref-parser": "^9.0.9",
-    "semver": "^7.3.5",
-    "commander": "^9.0.0",
+    "@growing-web/dancf-provider": "workspace:*",
     "@jspm/generator": "^1.0.0-beta.30",
+    "commander": "^9.1.0",
+    "json-schema-ref-parser": "^9.0.9",
     "lodash.merge": "^4.6.2",
-    "@growing-web/dancf-provider": "workspace:*"
+    "semver": "^7.3.6",
+    "single-line-log": "^1.1.2"
   },
   "bin": {
     "wpm": "./bin/wpm.js"
