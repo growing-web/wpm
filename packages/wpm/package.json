@@ -10,13 +10,19 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "single-line-log": "^1.1.2",
-    "json-schema-ref-parser": "^9.0.9",
-    "semver": "^7.3.5",
-    "commander": "^9.0.0",
+    "@growing-web/dancf-provider": "workspace:*",
+    "@growing-web/esm-pack-core": "^0.1.6",
+    "@growing-web/nodemodules-provider": "workspace:*",
     "@jspm/generator": "^1.0.0-beta.30",
+    "cmd-shim": "^5.0.0",
+    "commander": "^9.0.0",
+    "consola": "^2.15.3",
+    "fs-extra": "^10.1.0",
+    "json-schema-ref-parser": "^9.0.9",
     "lodash.merge": "^4.6.2",
-    "@growing-web/dancf-provider": "workspace:*"
+    "pkg-types": "^0.3.2",
+    "semver": "^7.3.5",
+    "single-line-log": "^1.1.2"
   },
   "bin": {
     "wpm": "./bin/wpm.js"
