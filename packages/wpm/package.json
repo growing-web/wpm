@@ -1,6 +1,6 @@
 {
   "name": "@growing-web/wpm",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "A package manager tool based on importmap",
   "publishConfig": {
     "access": "public"
