@@ -3,15 +3,20 @@ import * as nodemodules from '@growing-web/nodemodules-provider'
 import { stat } from 'fs/promises'
 import merge from 'lodash.merge'
 import jsonSchemaRefParser from 'json-schema-ref-parser'
-import { read, write, recursionImportmap } from './utils/index.js'
+import { read, write } from './utils/index.js'
+import {
+  recursionImportmapValues,
+  normalizeImportmap,
+} from './utils/importmap.js'
 import { createSymlink } from './utils/createSymlink.js'
 import { Generator, clearCache } from '@jspm/generator'
 import { resolve, join } from 'path'
 import { cwd } from 'process'
 import { stdout as singleLineLog } from 'single-line-log'
 import { doBuildSingleEntry } from '@growing-web/esm-pack-core'
-import consola from 'consola'
 import { readPackageJSON, writePackageJSON } from 'pkg-types'
+import colors from 'picocolors'
+import consola from 'consola'
 
 consola.wrapConsole()
 
@@ -114,7 +119,7 @@ export default async (options) => {
   })()
 
   await generator.install(install)
-  const importmap = generator.getMap()
+  let importmap = generator.getMap()
 
   // only nodemodules
   if (defaultProvider === 'nodemodules') {
@@ -122,13 +127,18 @@ export default async (options) => {
 
     // esm fix
     await polyfillEsm(importmap, install)
+
+    // normalize importmap
+    normalizeImportmap(importmap)
   }
 
   await write('importmap.json', importmap)
 
   singleLineLog('')
   singleLineLog.clear()
-  consola.success('[WPM] importmap.json created!')
+  consola.success(
+    `${colors.cyan('[WPM]')} ${colors.green('importmap.json created!')}`,
+  )
 }
 
 function symlinkDirs(importmap) {
@@ -144,7 +154,7 @@ function symlinkDirs(importmap) {
 }
 
 async function polyfillEsm(importmap, install = []) {
-  let files = recursionImportmap(importmap)
+  let files = recursionImportmapValues(importmap)
   const cwd = process.cwd()
 
   const targets = install.map((item) => {
@@ -200,7 +210,7 @@ function getSourcePath(filepath) {
 }
 
 function findSymlinkDirs(importmap) {
-  return recursionImportmap(importmap, (value) => {
+  return recursionImportmapValues(importmap, (value) => {
     if (value.startsWith('../')) {
       const splitValues = value.split('/')
       let flag = false

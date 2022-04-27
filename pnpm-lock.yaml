@@ -118,6 +118,7 @@ importers:
       fs-extra: ^10.1.0
       json-schema-ref-parser: ^9.0.9
       lodash.merge: ^4.6.2
+      picocolors: ^1.0.0
       pkg-types: ^0.3.2
       semver: ^7.3.5
       single-line-log: ^1.1.2
@@ -132,6 +133,7 @@ importers:
       fs-extra: 10.1.0
       json-schema-ref-parser: 9.0.9
       lodash.merge: 4.6.2
+      picocolors: 1.0.0
       pkg-types: 0.3.2
       semver: 7.3.6
       single-line-log: 1.1.2

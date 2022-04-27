@@ -15,24 +15,3 @@ export const copy = async (src, dest) => {
   await mkdir(dirname(path), { recursive: true })
   return copyFile(src, dest)
 }
-
-export const recursionImportmap = (importmap, handler) => {
-  if (!importmap) {
-    return []
-  }
-
-  let ret = []
-
-  for (const value of Object.values(importmap)) {
-    if (typeof value === 'string') {
-      if (handler) {
-        ret.push(handler(value))
-      } else {
-        ret.push(value)
-      }
-    } else {
-      ret.push(...recursionImportmap(value, handler))
-    }
-  }
-  return Array.from(new Set(ret)).filter(Boolean)
-}
