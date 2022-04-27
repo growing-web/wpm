@@ -1,12 +1,14 @@
 {
   "name": "@growing-web/wpm",
-  "version": "0.0.11",
+  "version": "0.0.13",
   "description": "A package manager tool based on importmap",
   "publishConfig": {
     "access": "public"
   },
   "type": "module",
   "types": "./index.d.ts",
+  "main": "./index.js",
+  "exports": "./index.js",
   "module": "./index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
