@@ -6,6 +6,8 @@
     "access": "public"
   },
   "type": "module",
+  "types": "./index.d.ts",
+  "module": "./index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
