@@ -1,6 +1,6 @@
 {
   "name": "@growing-web/wpm",
-  "version": "0.0.13",
+  "version": "0.0.15",
   "description": "A package manager tool based on importmap",
   "publishConfig": {
     "access": "public"
@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@growing-web/dancf-provider": "workspace:*",
-    "@growing-web/esm-pack-core": "^0.1.6",
+    "@growing-web/esm-pack-core": "^0.2.3",
     "@growing-web/nodemodules-provider": "workspace:*",
     "@jspm/generator": "^1.0.0-beta.30",
     "cmd-shim": "^5.0.0",
