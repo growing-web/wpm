@@ -1,39 +1,7 @@
 {
   "name": "@growing-web/nodemodules-provider",
+  "version": "0.1.0",
   "description": "Package Import Map Generation Tool",
-  "publishConfig": {
-    "access": "public"
-  },
-  "license": "MIT",
-  "version": "0.0.5",
-  "types": "dist/index.d.ts",
-  "type": "module",
-  "scripts": {
-    "build": "unbuild",
-    "prepublishOnly": "unbuild"
-  },
-  "exports": {
-    "default": "./dist/index.mjs"
-  },
-  "dependencies": {
-    "typescript": "^4.3.5"
-  },
-  "devDependencies": {
-    "@types/node": "^17.0.25",
-    "chalk": "^4.1.1",
-    "cross-env": "^7.0.2",
-    "rimraf": "^3.0.2",
-    "typedoc": "^0.22.8",
-    "unbuild": "^0.7.4"
-  },
-  "files": [
-    "dist",
-    "lib"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/growing-web/nodemodules-provider.git"
-  },
   "keywords": [
     "jspm",
     "import maps",
@@ -41,9 +9,41 @@
     "cdn",
     "package manager"
   ],
-  "author": "Guy Bedford",
+  "homepage": "https://github.com/growing-web/nodemodules-provider#readme",
   "bugs": {
     "url": "https://github.com/growing-web/nodemodules-provider/issues"
   },
-  "homepage": "https://github.com/growing-web/nodemodules-provider#readme"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/growing-web/nodemodules-provider.git"
+  },
+  "license": "MIT",
+  "author": "Guy Bedford",
+  "type": "module",
+  "exports": {
+    "default": "./dist/index.mjs"
+  },
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "lib"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "prepublishOnly": "unbuild"
+  },
+  "dependencies": {
+    "typescript": "^4.7.3"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.40",
+    "chalk": "^4.1.1",
+    "cross-env": "^7.0.3",
+    "rimraf": "^3.0.2",
+    "typedoc": "^0.22.17",
+    "unbuild": "^0.7.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }

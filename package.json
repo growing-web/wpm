@@ -2,10 +2,6 @@
   "name": "wpm-root",
   "version": "0.0.0",
   "private": true,
-  "workspaces": [
-    "packages/*",
-    "examples/*"
-  ],
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
@@ -13,7 +9,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "prettier": "^2.5.1",
+    "prettier": "^2.6.2",
     "turbo": "latest"
   },
   "engines": {

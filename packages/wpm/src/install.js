@@ -13,7 +13,7 @@ import { Generator, clearCache } from '@jspm/generator'
 import { resolve, join } from 'path'
 import { cwd } from 'process'
 import { stdout as singleLineLog } from 'single-line-log'
-import { doBuildSingleEntry } from '@growing-web/esm-pack-core'
+import { doBuildSingleEntry } from '@growing-web/esmpack-builder'
 import { readPackageJSON, writePackageJSON } from 'pkg-types'
 import colors from 'picocolors'
 import consola from 'consola'
@@ -96,49 +96,53 @@ export default async (options) => {
     clearCache()
   }
 
-  const { defaultProvider, providers, env, dependencies, resolutions } = json
-  const install = await parseDependencies(dependencies)
-  const generator = new Generator({
-    latest: true,
-    defaultProvider,
-    providers,
-    customProviders: { nodemodules, dancf },
-    env: env || [nodeEnv, 'browser', 'module'],
-    resolutions,
-    inputMap: {
-      imports: {},
-    },
-  })
+  try {
+    const { defaultProvider, providers, env, dependencies, resolutions } = json
+    const install = await parseDependencies(dependencies)
+    const generator = new Generator({
+      latest: true,
+      defaultProvider,
+      providers,
+      customProviders: { nodemodules, dancf },
+      env: env || [nodeEnv, 'browser', 'module'],
+      resolutions,
+      inputMap: {
+        imports: {},
+      },
+    })
 
-  ;(async () => {
-    for await (const { type, message } of generator.logStream()) {
-      if (type === 'install') {
-        singleLineLog(`[WPM] ${type}: ${message}`)
+    ;(async () => {
+      for await (const { type, message } of generator.logStream()) {
+        if (type === 'install') {
+          singleLineLog(`[WPM] ${type}: ${message}`)
+        }
       }
+    })()
+
+    await generator.install(install)
+    let importmap = generator.getMap()
+
+    // only nodemodules
+    if (defaultProvider === 'nodemodules') {
+      symlinkDirs(importmap)
+
+      // esm fix
+      await polyfillEsm(importmap, install)
+
+      // normalize importmap
+      await normalizeImportmap(importmap)
     }
-  })()
 
-  await generator.install(install)
-  let importmap = generator.getMap()
+    await write('importmap.json', importmap)
 
-  // only nodemodules
-  if (defaultProvider === 'nodemodules') {
-    symlinkDirs(importmap)
-
-    // esm fix
-    await polyfillEsm(importmap, install)
-
-    // normalize importmap
-    normalizeImportmap(importmap)
+    singleLineLog('')
+    singleLineLog.clear()
+    consola.success(
+      `${colors.cyan('[WPM]')} ${colors.green('importmap.json created!')}`,
+    )
+  } catch (error) {
+    console.error(error)
   }
-
-  await write('importmap.json', importmap)
-
-  singleLineLog('')
-  singleLineLog.clear()
-  consola.success(
-    `${colors.cyan('[WPM]')} ${colors.green('importmap.json created!')}`,
-  )
 }
 
 function symlinkDirs(importmap) {
