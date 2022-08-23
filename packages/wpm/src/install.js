@@ -14,7 +14,7 @@ import { resolve, join } from 'path'
 import { cwd } from 'process'
 import { stdout as singleLineLog } from 'single-line-log'
 import { doBuildSingleEntry } from '@growing-web/esmpack-builder'
-import { readPackageJSON, writePackageJSON } from 'pkg-types'
+import { readPackageJSON } from 'pkg-types'
 import colors from 'picocolors'
 import consola from 'consola'
 
@@ -72,7 +72,7 @@ const parseDependencies = async (input) => {
 }
 
 export default async (options) => {
-  const { force } = options
+  const { force, includeTarget = false } = options
   const config = 'web-module.json'
   const devConfig = 'web-module.dev.json'
   const exists = await stat(config)
@@ -127,7 +127,7 @@ export default async (options) => {
       symlinkDirs(importmap)
 
       // esm fix
-      await polyfillEsm(importmap, install)
+      await polyfillEsm(importmap, install, includeTarget)
 
       // normalize importmap
       await normalizeImportmap(importmap)
@@ -157,7 +157,7 @@ function symlinkDirs(importmap) {
   })
 }
 
-async function polyfillEsm(importmap, install = []) {
+async function polyfillEsm(importmap, install = [], includeTarget = false) {
   let files = recursionImportmapValues(importmap)
   const cwd = process.cwd()
 
@@ -173,13 +173,11 @@ async function polyfillEsm(importmap, install = []) {
     files.map(async (file) => {
       const sourcePath = getSourcePath(file)
       const pkg = await readPackageJSON(sourcePath)
-      if (targets.includes(pkg.name) || pkg.__ESMD__ === true) {
+
+      if (!includeTarget ? targets.includes(pkg.name) : false) {
         return () => {}
       }
-      await writePackageJSON(join(sourcePath, 'package.json'), {
-        ...pkg,
-        __ESMD__: true,
-      })
+
       return doBuildSingleEntry({
         input: resolve(cwd, file),
         outputPath: sourcePath,
