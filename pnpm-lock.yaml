@@ -109,7 +109,7 @@ importers:
   packages/wpm:
     specifiers:
       '@growing-web/dancf-provider': 0.1.0
-      '@growing-web/esmpack-builder': ^0.1.4-beta.1
+      '@growing-web/esmpack-builder': ^0.1.4-beta.2
       '@growing-web/nodemodules-provider': 0.1.0
       '@jspm/generator': ^1.0.0-beta.31
       cmd-shim: ^5.0.0
@@ -124,7 +124,7 @@ importers:
       single-line-log: ^1.1.2
     dependencies:
       '@growing-web/dancf-provider': link:../dancf-provider
-      '@growing-web/esmpack-builder': 0.1.4-beta.1
+      '@growing-web/esmpack-builder': 0.1.4-beta.2
       '@growing-web/nodemodules-provider': link:../nodemodules-provider
       '@jspm/generator': 1.0.0-beta.31
       cmd-shim: 5.0.0
@@ -563,8 +563,8 @@ packages:
     resolution: {integrity: sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==}
     dev: false
 
-  /@growing-web/esmpack-builder/0.1.4-beta.1:
-    resolution: {integrity: sha512-vMPfyTmHSrTAkIHT8fJPt/DtFFyDj83LueEj6Aqc8B26Q/O33TIw+Zh0BNIysOl7/vM5heqqwVX0tX9hLFdfZw==}
+  /@growing-web/esmpack-builder/0.1.4-beta.2:
+    resolution: {integrity: sha512-k0lahpKbtLk2AbOMrnIQWRXN3yqsrcv2miOS98tnhlUwNMerSF3PDFdwjgiXrSGFLmPFNyfdkQc5x+poxZRNYA==}
     dependencies:
       '@rollup/plugin-commonjs': 22.0.2_rollup@2.78.1
       '@rollup/plugin-inject': 4.0.4_rollup@2.78.1
@@ -3968,7 +3968,7 @@ packages:
       es-module-lexer: 0.9.3
       esbuild: 0.15.5
       joycon: 3.1.1
-      jsonc-parser: 3.0.0
+      jsonc-parser: 3.1.0
       rollup: 2.78.1
     transitivePeerDependencies:
       - supports-color
