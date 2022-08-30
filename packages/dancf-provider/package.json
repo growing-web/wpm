@@ -23,16 +23,16 @@
   "imports": {
     "#fetch": {
       "source": {
-        "vscode": "./lib/common/fetch-vscode.js",
-        "deno": "./lib/common/fetch-deno.js",
-        "node": "./lib/common/fetch-node.js",
-        "default": "./lib/common/fetch-native.js"
+        "vscode": "./dist/common/fetch-vscode.mjs",
+        "deno": "./dist/common/fetch-deno.mjs",
+        "node": "./dist/common/fetch-node.mjs",
+        "default": "./dist/common/fetch-native.mjs"
       },
       "default": {
-        "vscode": "./dist/fetch-vscode.js",
-        "deno": "./dist/fetch-deno.js",
-        "node": "./dist/fetch-node.js",
-        "default": "./dist/fetch-native.js"
+        "vscode": "./dist/fetch-vscode.mjs",
+        "deno": "./dist/fetch-deno.mjs",
+        "node": "./dist/fetch-node.mjs",
+        "default": "./dist/fetch-native.mjs"
       }
     },
     "#test/*": {
@@ -40,16 +40,17 @@
     }
   },
   "exports": {
-    "source": "./lib/index.js",
-    "default": "./dist/index.js"
+    "source": "./src/index.ts",
+    "default": "./dist/index.mjs"
   },
-  "types": "lib/index.d.ts",
+  "types": "dist/index.d.ts",
   "files": [
     "dist",
     "lib"
   ],
   "scripts": {
-    "prepublishOnly": "chomp build"
+    "build": "unbuild",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@babel/core": "^7.18.2",
@@ -75,7 +76,8 @@
     "open": "^8.4.0",
     "rimraf": "^3.0.2",
     "rollup": "^2.75.5",
-    "typedoc": "^0.22.17"
+    "typedoc": "^0.22.17",
+    "unbuild": "^0.7.4"
   },
   "publishConfig": {
     "access": "public"
