@@ -1,7 +1,0 @@
-{
-  "defaultProvider": "jspm",
-  "providers": {},
-  "dependencies": {
-    "$ref": "./package.json#/dependencies"
-  }
-}

@@ -1,9 +1,12 @@
 {
   "name": "@growing-web-examples/react17-pkg",
-  "exports": "./index.js",
+  "exports": {
+    ".": "./index.js"
+  },
   "publishConfig": {
     "access": "public"
   },
+  "type": "module",
   "version": "0.0.1",
   "dependencies": {
     "react": "^17.0.0"

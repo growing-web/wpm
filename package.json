@@ -4,17 +4,21 @@
   "private": true,
   "scripts": {
     "build": "turbo run build",
+    "stub": "pnpm -r run stub",
     "dev": "turbo run dev --parallel",
-    "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "lint": "turbo run lint"
+  },
+  "dependencies": {
+    "@types/node": "^18.11.0"
   },
   "devDependencies": {
-    "prettier": "^2.6.2",
+    "prettier": "^2.7.1",
     "turbo": "latest"
   },
+  "packageManager": "pnpm@7.13.2",
   "engines": {
-    "npm": ">=7.0.0",
-    "node": ">=14.0.0"
-  },
-  "packageManager": "pnpm@6.31.0"
+    "node": ">=16.0.0",
+    "npm": ">=7.0.0"
+  }
 }

@@ -1,6 +1,8 @@
 {
   "name": "@growing-web-examples/react18-pkg",
-  "exports": "./index.js",
+  "exports": {
+    ".": "./index.js"
+  },
   "publishConfig": {
     "access": "public"
   },

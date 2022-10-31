@@ -86,3 +86,24 @@ export function isRelative(specifier: string) {
 export function urlToNiceStr(url: string) {
   if (url.startsWith(baseUrl.href)) return './' + url.slice(baseUrl.href.length)
 }
+
+export function resolveUrl(
+  url: string,
+  mapUrl: URL,
+  rootUrl: URL | null,
+): string {
+  if (url.startsWith('/'))
+    return rootUrl
+      ? new URL('.' + url.slice(url[1] === '/' ? 1 : 0), rootUrl).href
+      : url
+  return new URL(url, mapUrl).href
+}
+
+export function isFetchProtocol(protocol) {
+  return (
+    protocol === 'file:' ||
+    protocol === 'https:' ||
+    protocol === 'http:' ||
+    protocol === 'data:'
+  )
+}

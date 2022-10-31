@@ -3,17 +3,20 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
+  "private": true,
   "scripts": {
     "serve": "web-dev-server --app-index index.html",
     "build": "wpm install"
   },
   "devDependencies": {
-    "@growing-web/wpm": "workspace:*"
+    "@growing-web/wpm": "workspace:*",
+    "@web/dev-server": "^0.1.34"
   },
   "dependencies": {
-    "@growing-web-examples/wpm-test": "workspace:*",
+    "vue": "3.2.21",
     "@growing-web-examples/react17-pkg": "workspace:*",
-    "@growing-web-examples/react18-pkg": "workspace:*"
+    "@growing-web-examples/react18-pkg": "workspace:*",
+    "@growing-web-examples/wpm-test": "workspace:*"
   },
   "author": "aui",
   "license": "MIT"

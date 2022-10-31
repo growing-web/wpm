@@ -2,15 +2,20 @@
   "imports": {
     "@growing-web-examples/react17-pkg": "https://esm.dancf.com/npm:@growing-web-examples/react17-pkg@0.0.1/index.js",
     "@growing-web-examples/react18-pkg": "https://esm.dancf.com/npm:@growing-web-examples/react18-pkg@0.0.1/index.js",
-    "@growing-web-examples/wpm-test": "https://esm.dancf.com/npm:@growing-web-examples/wpm-test@0.6.4/test.js"
+    "@growing-web-examples/wpm-test": "https://esm.dancf.com/npm:@growing-web-examples/wpm-test@0.6.4/test.js",
+    "vue": "https://esm.dancf.com/npm:vue@3.2.21/dist/vue.runtime.esm-bundler.js"
   },
   "scopes": {
     "https://esm.dancf.com/": {
+      "@vue/reactivity": "https://esm.dancf.com/npm:@vue/reactivity@3.2.21/dist/reactivity.esm-bundler.js",
+      "@vue/runtime-core": "https://esm.dancf.com/npm:@vue/runtime-core@3.2.21/dist/runtime-core.esm-bundler.js",
+      "@vue/runtime-dom": "https://esm.dancf.com/npm:@vue/runtime-dom@3.2.21/dist/runtime-dom.esm-bundler.js",
+      "@vue/shared": "https://esm.dancf.com/npm:@vue/shared@3.2.21/dist/shared.esm-bundler.js",
       "object-assign": "https://esm.dancf.com/npm:object-assign@4.1.1/index.js",
-      "react": "https://esm.dancf.com/npm:react@17.0.2/dev.index.js"
-    },
-    "https://esm.dancf.com/npm:@growing-web-examples/react18-pkg@0.0.1/": {
       "react": "https://esm.dancf.com/npm:react@18.2.0/index.js"
+    },
+    "https://esm.dancf.com/npm:@growing-web-examples/react17-pkg@0.0.1/": {
+      "react": "https://esm.dancf.com/npm:react@17.0.2/dev.index.js"
     }
   }
 }
