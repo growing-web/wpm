@@ -76,7 +76,24 @@ const parseDependencies = async (
 }
 
 export default async (options: WpmInstallOptions = {}) => {
-  const { force, cwd = process.cwd() } = options
+  const {
+    force,
+    cwd = process.cwd(),
+    cdnUrl,
+    systemCdnUrl,
+    buildApiUrl,
+  } = options
+
+  if (cdnUrl) {
+    process.env.WPM_DANCF_CDN_URL = cdnUrl
+  }
+  if (systemCdnUrl) {
+    process.env.WPM_DANCF_SYSTEM_CDN_URL = systemCdnUrl
+  }
+  if (buildApiUrl) {
+    process.env.WPM_DANCF_API_URL = buildApiUrl
+  }
+
   const config = path.resolve(cwd, 'web-module.json')
   const devConfig = path.resolve(cwd, 'web-module.dev.json')
   const pkgJson = path.resolve(cwd, 'package.json')

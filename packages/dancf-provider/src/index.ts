@@ -9,7 +9,7 @@ import { fetch } from '#fetch'
 
 const cdnUrl = process.env.WPM_DANCF_CDN_URL || 'https://esm.dancf.com/'
 const systemCdnUrl =
-  process.env.WPM_DANCF_SYSTEM_CDN_URL || 'https://system.dancf.com/'
+  process.env.WPM_DANCF_SYSTEM_CDN_URL || 'https://esm.dancf.com/'
 const apiUrl = process.env.WPM_DANCF_API_URL || 'https://esm-api.dancf.com/'
 
 const BUILD_POLL_TIME = 5 * 60 * 1000
