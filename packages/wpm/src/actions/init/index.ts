@@ -2,7 +2,7 @@ import path from 'path'
 import fs from 'fs-extra'
 import { WEB_MODULE_CONFIG, defaultWebModuleConfig } from '../../constants'
 
-export default async function init(cwd = process.cwd()) {
+export const init = async (cwd = process.cwd()) => {
   const dest = path.join(cwd, WEB_MODULE_CONFIG)
 
   if (!fs.existsSync(dest)) {

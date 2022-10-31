@@ -3,8 +3,6 @@ import logger from 'consola'
 import colors from 'picocolors'
 import pkg from '../package.json'
 import { checkNodeEngines } from './utils/check'
-import init from './actions/init'
-import install from './actions/install'
 import consola from 'consola'
 
 consola.wrapConsole()
@@ -17,13 +15,24 @@ async function bootstrap() {
   checkNodeEngines(pkg.engines)
 
   // 初始化
-  wpm.command('init').usage('init wpm.').action(init)
+  wpm
+    .command('init')
+    .usage('init wpm.')
+    .action(async () => {
+      const { init } = await import('./actions/init')
+      await init()
+    })
 
   wpm
     .command('install')
     .usage('wpm install.')
     .option('--force', 'force install.', { default: false })
-    .action(async (options: { force: boolean }) => install(options))
+    .option('--create-importmap', 'is create importmap.', { default: true })
+    .option('--html-inject [html]', 'inject importmap to html.')
+    .action(async (options) => {
+      const { install } = await import('./actions/install')
+      await install(options)
+    })
 
   // Invalid command
   wpm.on('command:*', function () {

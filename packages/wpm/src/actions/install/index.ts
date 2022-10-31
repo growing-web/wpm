@@ -1,4 +1,5 @@
-import type { InstanceDep, WpmInstallOptions, Importmap } from '../../types'
+import type { InstanceDep, WpmInstallOptions } from '../../types'
+import { getPackages } from '@manypkg/get-packages'
 // @ts-ignore
 import * as dancf from '@growing-web/dancf-provider'
 import * as pnpm_modules from '@growing-web/pnpm-nodemodules-provider'
@@ -75,24 +76,13 @@ const parseDependencies = async (
   return install
 }
 
-export default async (options: WpmInstallOptions = {}) => {
+export const install = async (options: WpmInstallOptions = {}) => {
   const {
     force,
     cwd = process.cwd(),
-    cdnUrl,
-    systemCdnUrl,
-    buildApiUrl,
+    createImportmap = true,
+    htmlInject,
   } = options
-
-  if (cdnUrl) {
-    process.env.WPM_DANCF_CDN_URL = cdnUrl
-  }
-  if (systemCdnUrl) {
-    process.env.WPM_DANCF_SYSTEM_CDN_URL = systemCdnUrl
-  }
-  if (buildApiUrl) {
-    process.env.WPM_DANCF_API_URL = buildApiUrl
-  }
 
   const config = path.resolve(cwd, 'web-module.json')
   const devConfig = path.resolve(cwd, 'web-module.dev.json')
@@ -123,8 +113,12 @@ export default async (options: WpmInstallOptions = {}) => {
       env,
       dependencies,
       resolutions,
+      inputMap = { imports: {} },
+      ignore = [],
     } = json
-    const install = await parseDependencies(dependencies)
+
+    const resolveDependencies = await resolveWorkspackVersion(dependencies)
+    const install = await parseDependencies(resolveDependencies)
 
     const generator = new Generator({
       latest: true,
@@ -134,9 +128,8 @@ export default async (options: WpmInstallOptions = {}) => {
       customProviders: { pnpm_modules: pnpm_modules, dancf },
       env: env || [nodeEnv, 'browser', 'module'],
       resolutions,
-      inputMap: {
-        imports: {},
-      },
+      inputMap,
+      ignore,
     })
     ;(async () => {
       for await (const { type, message } of generator.logStream()) {
@@ -150,22 +143,71 @@ export default async (options: WpmInstallOptions = {}) => {
     let importmap: any = generator.getMap()
 
     // only nodemodules
-
     if (defaultProvider === PNPM_MODULES) {
       importmap = await createWebModules(importmap)
     }
 
-    await fs.writeJSON(path.resolve(cwd, IMPORTMAP_JSON), importmap, {
-      encoding: 'utf-8',
-      spaces: 2,
-    })
+    if (createImportmap) {
+      await fs.writeJSON(path.resolve(cwd, IMPORTMAP_JSON), importmap, {
+        encoding: 'utf-8',
+        spaces: 2,
+      })
 
-    // singleLineLog('')
-    // singleLineLog.clear()
+      singleLineLog('')
+      singleLineLog.clear()
+      consola.success(
+        `${colors.cyan('[WPM]')} ${colors.green('importmap.json created!')}`,
+      )
+    }
+
+    if (htmlInject) {
+      const htmlRoot = path.join(process.cwd(), htmlInject)
+      const html = await fs.readFile(htmlRoot, { encoding: 'utf8' })
+      const outputHtml = await generator.htmlInject(html, {
+        trace: false,
+        esModuleShims: false,
+        comment: false,
+        whitespace: false,
+        preload: true,
+      })
+      await fs.writeFile(htmlRoot, outputHtml, { encoding: 'utf8' })
+      consola.success(
+        `${colors.cyan('[WPM]')} ${colors.green('html inject success!')}`,
+      )
+    }
+
     consola.success(
-      `${colors.cyan('[WPM]')} ${colors.green('importmap.json created!')}`,
+      `${colors.cyan('[WPM]')} ${colors.green('install success!')}`,
     )
+
+    return { generator, importmap }
   } catch (error) {
     console.error(error)
   }
+}
+
+async function resolveWorkspackVersion(dependencies: Record<string, any>) {
+  const { packages } = await getPackages(process.cwd())
+
+  let dep: Record<string, any> = {}
+
+  const _dependencies: Record<string, any> = Array.isArray(dependencies)
+    ? dependencies[0]
+    : dependencies
+
+  for (const [key, value] of Object.entries(_dependencies)) {
+    if (value) {
+      const range = value.replace(/\s/g, '')
+      if (range === 'workspace:*') {
+        const findPkg = packages.find((pkg) => pkg.packageJson?.name === key)
+        if (findPkg) {
+          dep[key] = findPkg.packageJson?.version
+          continue
+        }
+      } else {
+        dep[key] = value
+      }
+    }
+  }
+  return dep
 }
