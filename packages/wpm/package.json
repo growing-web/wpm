@@ -1,6 +1,6 @@
 {
   "name": "@growing-web/wpm",
-  "version": "0.2.0-beta.1",
+  "version": "0.2.0-beta.2",
   "description": "A package manager tool based on importmap",
   "license": "MIT",
   "author": "aui",
@@ -16,8 +16,12 @@
   },
   "scripts": {
     "build": "unbuild",
-    "stub": "unbuild --stub"
+    "stub": "unbuild --stub",
+    "prepublishOnly": "pnpm run build"
   },
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@growing-web/dancf-provider": "workspace:*",
     "@growing-web/esmpack-builder": "^0.2.0-beta.2",
