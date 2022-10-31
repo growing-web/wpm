@@ -1,6 +1,6 @@
 {
   "name": "@growing-web/wpm",
-  "version": "0.2.0-beta.2",
+  "version": "0.2.0-beta.3",
   "description": "A package manager tool based on importmap",
   "license": "MIT",
   "author": "aui",
@@ -10,7 +10,7 @@
   },
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
-  "types": "./index.d.ts",
+  "types": "./dist/index.d.ts",
   "bin": {
     "wpm": "./bin/wpm.mjs"
   },
