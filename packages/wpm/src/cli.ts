@@ -22,7 +22,8 @@ async function bootstrap() {
   wpm
     .command('install')
     .usage('wpm install.')
-    .action(async () => install())
+    .option('--force', 'force install.', { default: false })
+    .action(async (options: { force: boolean }) => install(options))
 
   // Invalid command
   wpm.on('command:*', function () {

@@ -1,6 +1,6 @@
 {
   "name": "@growing-web/wpm",
-  "version": "0.2.0-beta.3",
+  "version": "0.2.0-beta.4",
   "description": "A package manager tool based on importmap",
   "license": "MIT",
   "author": "aui",
