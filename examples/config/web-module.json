@@ -1,5 +1,5 @@
 {
-  "defaultProvider": "dancf",
+  "defaultProvider": "pnpm_modules",
   "providers": {},
   "dependencies": [
     {

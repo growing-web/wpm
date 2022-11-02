@@ -68,7 +68,8 @@ async function createImports(imports: Importmap['imports'], needCopy = true) {
 
   const cwd = process.cwd()
 
-  for (const [key, value] of Object.entries(imports)) {
+  for (let [key, value] of Object.entries(imports)) {
+    value = path.join(value)
     let realPath = await normalizePath(value)
 
     realPath = cleanPnpmGlobalPath(realPath)
@@ -76,6 +77,7 @@ async function createImports(imports: Importmap['imports'], needCopy = true) {
     resultImports[key] = path
       .join('/', WEB_MODULES, realPath)
       .replaceAll(NODE_MODULES, WEB_MODULES)
+    resultImports[key] = resultImports[key].replaceAll('\\', '/')
 
     if (needCopy) {
       let relativePath = await getCopyRelativePath(value)
@@ -97,7 +99,12 @@ async function createImports(imports: Importmap['imports'], needCopy = true) {
         targetRelativepath !== '/.pnpm/node_modules' &&
         !fs.existsSync(targetPath)
       ) {
-        await fs.copy(originPath, targetPath, {
+        const dirname = path.dirname(targetPath)
+        let basename = path.basename(targetPath)
+        if (basename === 'node_modules') {
+          basename = WEB_MODULES
+        }
+        await fs.copy(originPath, path.join(dirname, basename), {
           dereference: true,
           overwrite: true,
         })

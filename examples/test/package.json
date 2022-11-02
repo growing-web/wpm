@@ -16,5 +16,7 @@
     "access": "public"
   },
   "version": "0.6.4",
-  "dependencies": {}
+  "dependencies": {
+    "vue": "3.2.21"
+  }
 }
