@@ -99,12 +99,7 @@ async function createImports(imports: Importmap['imports'], needCopy = true) {
         targetRelativepath !== '/.pnpm/node_modules' &&
         !fs.existsSync(targetPath)
       ) {
-        const dirname = path.dirname(targetPath)
-        let basename = path.basename(targetPath)
-        if (basename === 'node_modules') {
-          basename = WEB_MODULES
-        }
-        await fs.copy(originPath, path.join(dirname, basename), {
+        await fs.copy(originPath, targetPath, {
           dereference: true,
           overwrite: true,
         })
