@@ -88,6 +88,7 @@ async function createImports(imports: Importmap['imports'], needCopy = true) {
         cwd,
         path.join(value.substring(0, index), relativePath),
       )
+
       const targetRelativepath = await normalizePath(relativePath)
       const targetPath = path.join(
         cwd,
@@ -183,7 +184,7 @@ async function getCopyRelativePath(pathname: string) {
     relativePath = path.join(relativePath, item)
   }
 
-  return relativePath
+  return relativePath.replaceAll(path.sep, '/')
 }
 
 /**
