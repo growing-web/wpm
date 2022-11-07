@@ -6,6 +6,7 @@ import { doBuild } from '@growing-web/esmpack-builder'
 import { readPackageJSON } from 'pkg-types'
 import fg from 'fast-glob'
 import { findUpSync } from 'find-up'
+import { findUpRoot } from '../../utils/find-up'
 
 /**
  * 根据importmap创建web_modules
@@ -80,27 +81,17 @@ async function createImports(imports: Importmap['imports'], needCopy = true) {
     resultImports[key] = resultImports[key].replaceAll('\\', '/')
 
     if (needCopy) {
-      let relativePath = await getCopyRelativePath(value)
+      const pathname = path.join(cwd, value)
+      const pkgRoot = findUpRoot(pathname)
 
-      const index = value.indexOf(relativePath)
+      const index = pkgRoot.indexOf(NODE_MODULES)
+      const relativePath = pkgRoot.substring(index, pkgRoot.length)
 
-      const originPath = path.join(
-        cwd,
-        path.join(value.substring(0, index), relativePath),
-      )
+      const targetPathname = relativePath.replaceAll(NODE_MODULES, WEB_MODULES)
+      const targetPath = path.join(cwd, targetPathname)
 
-      const targetRelativepath = await normalizePath(relativePath)
-      const targetPath = path.join(
-        cwd,
-        WEB_MODULES,
-        cleanPnpmGlobalPath(targetRelativepath),
-      )
-
-      if (
-        targetRelativepath !== '/.pnpm/node_modules' &&
-        !fs.existsSync(targetPath)
-      ) {
-        await fs.copy(originPath, targetPath, {
+      if (!fs.existsSync(targetPath)) {
+        await fs.copy(pkgRoot, targetPath, {
           dereference: true,
           overwrite: true,
         })
@@ -136,55 +127,6 @@ async function normalizePath(pathname: string) {
   }
 
   return pathname
-}
-
-/**
- * 获取包需要拷贝的目录相对路径
- * @param pathname
- */
-async function getCopyRelativePath(pathname: string) {
-  let _pathname = pathname.replace(/\.\.\//g, '')
-  if (!_pathname.startsWith('/') && !_pathname.startsWith('./')) {
-    _pathname = `/${_pathname}`
-  }
-  const paths = _pathname.split('/')
-
-  let maxIndex = 2
-  const pkg = paths?.[maxIndex]
-  if (!pkg) {
-    return pathname
-  }
-
-  if (pkg.startsWith('@')) {
-    maxIndex++
-  }
-
-  // pnpm特有
-  if (pkg === '.pnpm') {
-    maxIndex++
-  }
-
-  if (pathname.includes('.pnpm')) {
-    for (let index = 0; index <= paths.length; index++) {
-      const item = paths[index]
-      if (
-        item === '.pnpm' ||
-        item === 'node_modules' ||
-        item?.startsWith('@')
-      ) {
-        maxIndex = index + 1
-      }
-    }
-  }
-
-  let relativePath = ''
-
-  for (let index = 0; index <= maxIndex; index++) {
-    const item = paths[index]
-    relativePath = path.join(relativePath, item)
-  }
-
-  return relativePath.replaceAll(path.sep, '/')
 }
 
 /**
@@ -224,7 +166,7 @@ export async function cleanWebModules() {
   const cwd = process.cwd()
   const webModuleCwd = path.join(cwd, WEB_MODULES)
 
-  const findDirs = fg.sync('**/**', {
+  const findDirs = fg.sync('**/**/node_modules', {
     cwd: webModuleCwd,
     onlyDirectories: true,
     absolute: true,
@@ -233,14 +175,9 @@ export async function cleanWebModules() {
   findDirs.reverse()
 
   for (const findDir of findDirs) {
-    const dir = path.dirname(findDir)
-
-    // node_modules => web_modules
-    if (findDir.endsWith(`/${NODE_MODULES}`)) {
-      const dstDir = path.join(dir, WEB_MODULES)
-      if (!fs.existsSync(dstDir)) {
-        await fs.rename(findDir, dstDir)
-      }
+    const dir = path.basename(findDir)
+    if (dir === NODE_MODULES) {
+      await fs.remove(findDir)
     }
   }
 }
@@ -321,12 +258,4 @@ function cleanPnpmGlobalPath(pathname: string) {
     }
   }
   return ret.join('/')
-}
-
-export function findUpRoot(pathname: string) {
-  const packageFile = findUpSync('package.json', {
-    type: 'file',
-    cwd: path.dirname(pathname),
-  })
-  return path.dirname(packageFile!)
 }
