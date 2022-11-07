@@ -60,12 +60,14 @@ importers:
       chalk: ^4.1.1
       cross-env: ^7.0.3
       es-module-lexer: ^0.10.5
+      google-protobuf: ^3.14.0
       ipfs-client: ^0.8.1
       ipfs-utils: ^9.0.6
       kleur: ^4.1.4
       lit-element: ^3.2.0
       make-fetch-happen: ^8.0.3
       mocha: ^10.0.0
+      node-fetch: ^3.2.8
       open: ^8.4.0
       rimraf: ^3.0.2
       rollup: ^2.75.5
@@ -80,8 +82,10 @@ importers:
       '@jspm/generator': 1.0.0-beta.38_msbdhaxm7rpgjiymqpbiri2v64
       '@jspm/import-map': 0.3.3
       es-module-lexer: 0.10.5
+      google-protobuf: 3.21.2
       ipfs-client: 0.8.3_c2prdiehwhpor2bge2tdo6n53i
       make-fetch-happen: 8.0.14
+      node-fetch: 3.2.10
       sver: 1.8.3
       typescript: 4.8.4
     devDependencies:
@@ -154,9 +158,11 @@ importers:
       lodash.merge: ^4.6.2
       picocolors: ^1.0.0
       pkg-types: ^0.3.5
+      rollup: 2.79.1
       semver: ^7.3.8
       single-line-log: ^1.1.2
       unbuild: ^0.8.11
+      undici: 5.12.0
     dependencies:
       '@growing-web/dancf-provider': link:../dancf-provider
       '@growing-web/esmpack-builder': 0.2.0-beta.2
@@ -173,8 +179,10 @@ importers:
       lodash.merge: 4.6.2
       picocolors: 1.0.0
       pkg-types: 0.3.6
+      rollup: 2.79.1
       semver: 7.3.8
       single-line-log: 1.1.2
+      undici: 5.12.0
     devDependencies:
       '@types/fs-extra': 9.0.13
       '@types/semver': 7.3.13
@@ -5534,7 +5542,6 @@ packages:
     hasBin: true
     optionalDependencies:
       fsevents: 2.3.2
-    dev: true
 
   /rollup/3.2.3:
     resolution: {integrity: sha512-qfadtkY5kl0F5e4dXVdj2D+GtOdifasXHFMiL1SMf9ADQDv5Eti6xReef9FKj+iQPR2pvtqWna57s/PjARY4fg==}
