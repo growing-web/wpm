@@ -1,6 +1,6 @@
 {
   "name": "@growing-web/dancf-provider",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Package Import Map Generation Tool",
   "keywords": [
     "jspm",
@@ -76,7 +76,7 @@
     "lit-element": "^3.2.0",
     "mocha": "^10.0.0",
     "open": "^8.4.0",
-    "rimraf": "^3.0.2",
+    "rimraf": "^5.0.0",
     "rollup": "^2.75.5",
     "typedoc": "^0.22.17",
     "unbuild": "^0.7.4"
