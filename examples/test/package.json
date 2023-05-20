@@ -17,6 +17,6 @@
   },
   "version": "0.6.4",
   "dependencies": {
-    "vue": "3.2.21"
+    "vue": "3.3.4"
   }
 }

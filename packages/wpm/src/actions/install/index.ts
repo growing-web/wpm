@@ -15,6 +15,7 @@ import fs from 'fs-extra'
 import path from 'path'
 import { IMPORTMAP_JSON, PNPM_MODULES } from '../../constants'
 import { createWebModules } from './webModule'
+import { getPackageRoot } from '../../utils/find-up'
 
 const parseDependencies = async (
   input: Record<string, any> | Record<string, any>[],
@@ -123,6 +124,7 @@ export const install = async (options: WpmInstallOptions = {}) => {
     const generator = new Generator({
       latest: true,
       defaultProvider,
+      commonJS: true,
       providers,
       // @ts-ignore
       customProviders: { pnpm_modules: pnpm_modules, dancf },
@@ -187,7 +189,8 @@ export const install = async (options: WpmInstallOptions = {}) => {
 }
 
 async function resolveWorkspackVersion(dependencies: Record<string, any>) {
-  const { packages } = await getPackages(process.cwd())
+  const root = getPackageRoot()
+  const { packages } = await getPackages(root)
 
   let dep: Record<string, any> = {}
 

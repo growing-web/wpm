@@ -4,6 +4,7 @@ import { fetch } from './fetch'
 import { JspmError } from './common/err'
 import { importedFrom } from './common/url'
 import { Resolver } from './trace/resolver'
+// @ts-ignore
 import { createRequire } from 'module'
 
 const require = createRequire(import.meta.url)

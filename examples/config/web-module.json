@@ -1,6 +1,8 @@
 {
-  "defaultProvider": "dancf",
-  "providers": {},
+  "defaultProvider": "jspm",
+  "providers": {
+    "@growing-web-examples/wpm-test": "nodemodules"
+  },
   "dependencies": [
     {
       "$ref": "./package.json#/dependencies"

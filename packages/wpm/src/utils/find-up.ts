@@ -8,3 +8,16 @@ export function findUpRoot(pathname: string) {
   })
   return path.dirname(packageFile!)
 }
+
+export function getPackageRoot(): string {
+  const cwd = process.cwd()
+
+  const lockFile = findUpSync(
+    ['yarn.lock', 'pnpm-lock.yaml', 'package-lock.json'],
+    {
+      cwd,
+    },
+  )
+
+  return path.dirname(lockFile!)
+}
