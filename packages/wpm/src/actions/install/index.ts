@@ -1,7 +1,6 @@
 import type { InstanceDep, WpmInstallOptions } from '../../types'
 import { getPackages } from '@manypkg/get-packages'
-// @ts-ignore
-import * as dancf from '@growing-web/dancf-provider'
+import { createProvider } from '@growing-web/dancf-provider'
 import * as pnpm_modules from '@growing-web/pnpm-nodemodules-provider'
 // @ts-ignore
 import merge from 'lodash.merge'
@@ -126,8 +125,10 @@ export const install = async (options: WpmInstallOptions = {}) => {
       defaultProvider,
       commonJS: true,
       providers,
-      // @ts-ignore
-      customProviders: { pnpm_modules: pnpm_modules, dancf },
+      customProviders: {
+        pnpm_modules: pnpm_modules as any,
+        dancf: createProvider() as any,
+      },
       env: env || [nodeEnv, 'browser', 'module'],
       resolutions,
       inputMap,

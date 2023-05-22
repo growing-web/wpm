@@ -60,7 +60,8 @@
     "ipfs-client": "^0.10.0",
     "make-fetch-happen": "^11.1.1",
     "node-fetch": "^3.3.1",
-    "sver": "^1.8.4"
+    "sver": "^1.8.4",
+    "rimraf": "^5.0.1"
   },
   "devDependencies": {
     "typescript": "^5.0.4",
@@ -73,7 +74,6 @@
     "lit-element": "^3.3.2",
     "mocha": "^10.2.0",
     "open": "^9.1.0",
-    "rimraf": "^5.0.1",
     "rollup": "^3.22.0",
     "typedoc": "^0.24.7",
     "unbuild": "^1.2.1"
