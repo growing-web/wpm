@@ -6,7 +6,7 @@ import * as pnpm_modules from '@growing-web/pnpm-nodemodules-provider'
 import merge from 'lodash.merge'
 import JsonRefParser from 'json-schema-ref-parser'
 // @ts-ignore
-import { Generator, clearCache } from '@jspm/generator'
+import { Generator, clearCache, fetch } from '@jspm/generator'
 import { stdout as singleLineLog } from 'single-line-log'
 import colors from 'picocolors'
 import consola from 'consola'
@@ -75,6 +75,8 @@ const parseDependencies = async (
 
   return install
 }
+
+export { Generator, clearCache, fetch }
 
 export const install = async (options: WpmInstallOptions = {}) => {
   const {
