@@ -14,17 +14,23 @@ export interface WpmInstallOptions {
    * @default process.cwd()
    */
   cwd?: string
-
   /**
    * 是否生成importmap文件
    * @default true
    */
-  createImportmap?: boolean
-
+  createImportmap?: boolean | string
   /**
    * 将importmap注入指定html
    */
   htmlInject?: string
+  /**
+   * cdn api路径
+   */
+  cdnApiUrl?: string
+  /**
+   * cdn路径
+   */
+  cdnUrl?: string
 }
 
 export interface InstanceDep {

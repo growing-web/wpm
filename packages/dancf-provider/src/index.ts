@@ -21,7 +21,15 @@ let resolveCache: Record<
 > = {}
 
 export const createProvider = (
-  { cdnUrl, cdnApiUrl, systemCdnUrl } = {
+  {
+    cdnUrl,
+    cdnApiUrl,
+    systemCdnUrl,
+  }: {
+    cdnUrl?: string
+    cdnApiUrl?: string
+    systemCdnUrl?: string
+  } = {
     cdnUrl: '',
     cdnApiUrl: '',
     systemCdnUrl: '',

@@ -82,6 +82,8 @@ export const install = async (options: WpmInstallOptions = {}) => {
     cwd = process.cwd(),
     createImportmap = true,
     htmlInject,
+    cdnApiUrl,
+    cdnUrl,
   } = options
 
   const config = path.resolve(cwd, 'web-module.json')
@@ -127,7 +129,7 @@ export const install = async (options: WpmInstallOptions = {}) => {
       providers,
       customProviders: {
         pnpm_modules: pnpm_modules as any,
-        dancf: createProvider() as any,
+        dancf: createProvider({ cdnApiUrl, cdnUrl }) as any,
       },
       env: env || [nodeEnv, 'browser', 'module'],
       resolutions,
@@ -151,7 +153,11 @@ export const install = async (options: WpmInstallOptions = {}) => {
     }
 
     if (createImportmap) {
-      await fs.writeJSON(path.resolve(cwd, IMPORTMAP_JSON), importmap, {
+      let outputPath = path.resolve(cwd, IMPORTMAP_JSON)
+      if (typeof createImportmap === 'string') {
+        outputPath = path.resolve(cwd, createImportmap)
+      }
+      await fs.writeJSON(outputPath, importmap, {
         encoding: 'utf-8',
         spaces: 2,
       })
