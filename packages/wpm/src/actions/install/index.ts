@@ -120,7 +120,7 @@ export const install = async (options: WpmInstallOptions = {}) => {
     } = json
 
     const resolveDependencies = await resolveWorkspackVersion(dependencies)
-    const install = await parseDependencies(resolveDependencies)
+    const install = await parseDependencies(resolveDependencies, cwd)
 
     const generator = new Generator({
       latest: true,
@@ -170,7 +170,7 @@ export const install = async (options: WpmInstallOptions = {}) => {
     }
 
     if (htmlInject) {
-      const htmlRoot = path.join(process.cwd(), htmlInject)
+      const htmlRoot = path.join(cwd, htmlInject)
       const html = await fs.readFile(htmlRoot, { encoding: 'utf8' })
       const outputHtml = await generator.htmlInject(html, {
         trace: false,
