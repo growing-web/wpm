@@ -157,6 +157,7 @@ export const install = async (options: WpmInstallOptions = {}) => {
       if (typeof createImportmap === 'string') {
         outputPath = path.resolve(cwd, createImportmap)
       }
+      fs.ensureFile(outputPath)
       await fs.writeJSON(outputPath, importmap, {
         encoding: 'utf-8',
         spaces: 2,
