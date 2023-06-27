@@ -1,6 +1,6 @@
 {
   "name": "@growing-web/pnpm-nodemodules-provider",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Package Import Map Generation Tool",
   "keywords": [
     "jspm",
