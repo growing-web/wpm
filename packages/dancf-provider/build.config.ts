@@ -27,4 +27,7 @@ export default defineBuildConfig({
   declaration: true,
   outDir: 'dist',
   externals: ['rimraf', '#fetch'],
+  rollup: {
+    emitCJS: true,
+  },
 })

@@ -21,9 +21,15 @@
   "author": "Guy Bedford",
   "type": "module",
   "exports": {
-    "default": "./dist/index.mjs"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
+    }
   },
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist",
     "lib"
