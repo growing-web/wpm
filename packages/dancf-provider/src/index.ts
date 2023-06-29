@@ -4,8 +4,7 @@ import { importedFrom } from './common/url.js'
 import { LatestPackageTarget } from './install/package.js'
 import { pkgToStr } from './install/package.js'
 import { ExactPackage } from './install/package.js'
-// @ts-ignore
-import { fetch } from '#fetch'
+import { fetch } from './common/fetch-native'
 
 const BUILD_POLL_TIME = 5 * 60 * 1000
 const BUILD_POLL_INTERVAL = 5 * 1000
