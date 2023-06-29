@@ -1,6 +1,6 @@
 {
   "name": "@growing-web/dancf-provider",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "Package Import Map Generation Tool",
   "keywords": [
     "jspm",

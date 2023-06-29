@@ -4,7 +4,7 @@ import { importedFrom } from './common/url.js'
 import { LatestPackageTarget } from './install/package.js'
 import { pkgToStr } from './install/package.js'
 import { ExactPackage } from './install/package.js'
-import { fetch } from './common/fetch-native'
+import { fetch } from './common/fetch-node.js'
 
 const BUILD_POLL_TIME = 5 * 60 * 1000
 const BUILD_POLL_INTERVAL = 5 * 1000
@@ -71,9 +71,11 @@ export const createProvider = (
     fetchOpts: any,
   ): Promise<boolean> {
     const pkgStr = pkgToStr(pkg)
+    // @ts-ignore
     const pjsonRes = await fetch(`${cdnUrl}${pkgStr}/package.json`, fetchOpts)
     if (pjsonRes.ok) return true
     // no package.json! Check if there's a build error:
+    // @ts-ignore
     const errLogRes = await fetch(`${cdnUrl}${pkgStr}/_error.log`, fetchOpts)
     if (errLogRes.ok) {
       const errLog = await errLogRes.text()
@@ -93,6 +95,7 @@ export const createProvider = (
     // no package.json AND no build error -> post a build request
     // once the build request has been posted, try polling for up to 2 mins
     const buildRes = await fetch(
+      // @ts-ignore
       `${apiUrl}build/${pkg.name}@${pkg.version}`,
       fetchOpts,
     )
