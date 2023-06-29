@@ -256,6 +256,7 @@ export const createProvider = (
     parentUrl?: string,
   ): Promise<ExactPackage | null> {
     const res = await fetch(
+      // @ts-ignore
       pkgToLookupUrl({ registry, name, version: range }, unstable),
       this.fetchOpts,
     )
