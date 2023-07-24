@@ -6,7 +6,9 @@
   "private": true,
   "scripts": {
     "serve": "web-dev-server --app-index index.html",
-    "build": "wpm install --force"
+    "build": "wpm install --force",
+    "build:dev": "WPM_DANCF_CDN_URL=https://esm-dev.dancf.com/ WPM_DANCF_API_URL=https://esm-api-dev.dancf.com/ wpm install --force",
+    "build:local": "WPM_DANCF_CDN_URL=http://localhost:6126/ WPM_DANCF_API_URL=http://localhost:6123/ wpm install --force"
   },
   "devDependencies": {
     "@growing-web/wpm": "workspace:*",
@@ -16,7 +18,7 @@
     "@growing-web-examples/react17-pkg": "workspace:*",
     "@growing-web-examples/react18-pkg": "workspace:*",
     "@growing-web-examples/wpm-test": "workspace:*",
-    "vue": "3.2.21"
+    "vue": "3.3.4"
   },
   "author": "aui",
   "license": "MIT"

@@ -1,21 +1,21 @@
 {
   "imports": {
-    "@growing-web-examples/react17-pkg": "https://ga.jspm.io/npm:@growing-web-examples/react17-pkg@0.0.1/index.js",
-    "@growing-web-examples/react18-pkg": "https://ga.jspm.io/npm:@growing-web-examples/react18-pkg@0.0.1/index.js",
+    "@growing-web-examples/react17-pkg": "https://esm-dev.dancf.com/npm:@growing-web-examples/react17-pkg@0.0.1/index.js",
+    "@growing-web-examples/react18-pkg": "https://esm-dev.dancf.com/npm:@growing-web-examples/react18-pkg@0.0.1/index.js",
     "@growing-web-examples/wpm-test": "./node_modules/@growing-web-examples/wpm-test/test.dev.mjs",
-    "vue": "https://ga.jspm.io/npm:vue@3.2.21/dist/vue.runtime.esm-bundler.js"
+    "vue": "https://esm-dev.dancf.com/npm:vue@3.3.4/dist/vue.runtime.esm-bundler.js"
   },
   "scopes": {
-    "https://ga.jspm.io/": {
-      "@vue/reactivity": "https://ga.jspm.io/npm:@vue/reactivity@3.2.21/dist/reactivity.esm-bundler.js",
-      "@vue/runtime-core": "https://ga.jspm.io/npm:@vue/runtime-core@3.2.21/dist/runtime-core.esm-bundler.js",
-      "@vue/runtime-dom": "https://ga.jspm.io/npm:@vue/runtime-dom@3.2.21/dist/runtime-dom.esm-bundler.js",
-      "@vue/shared": "https://ga.jspm.io/npm:@vue/shared@3.2.21/dist/shared.esm-bundler.js",
-      "object-assign": "https://ga.jspm.io/npm:object-assign@4.1.1/index.js",
-      "react": "https://ga.jspm.io/npm:react@18.2.0/dev.index.js"
+    "https://esm-dev.dancf.com/": {
+      "@vue/reactivity": "https://esm-dev.dancf.com/npm:@vue/reactivity@3.3.4/dist/reactivity.esm-bundler.js",
+      "@vue/runtime-core": "https://esm-dev.dancf.com/npm:@vue/runtime-core@3.3.4/dist/runtime-core.esm-bundler.js",
+      "@vue/runtime-dom": "https://esm-dev.dancf.com/npm:@vue/runtime-dom@3.3.4/dist/runtime-dom.esm-bundler.js",
+      "@vue/shared": "https://esm-dev.dancf.com/npm:@vue/shared@3.3.4/dist/shared.esm-bundler.js",
+      "object-assign": "https://esm-dev.dancf.com/npm:object-assign@4.1.1/index.js",
+      "react": "https://esm-dev.dancf.com/npm:react@18.2.0/index.js"
     },
-    "https://ga.jspm.io/npm:@growing-web-examples/react17-pkg@0.0.1/": {
-      "react": "https://ga.jspm.io/npm:react@17.0.2/dev.index.js"
+    "https://esm-dev.dancf.com/npm:@growing-web-examples/react17-pkg@0.0.1/": {
+      "react": "https://esm-dev.dancf.com/npm:react@17.0.2/dev.index.js"
     }
   }
 }

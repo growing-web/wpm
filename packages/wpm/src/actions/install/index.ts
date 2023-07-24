@@ -146,7 +146,14 @@ export const install = async (options: WpmInstallOptions = {}) => {
       }
     })()
 
-    await generator.install(install)
+    await retry(
+      async () => {
+        await generator.install(install)
+      },
+      3,
+      500,
+    )
+
     let importmap: any = generator.getMap()
 
     // only nodemodules
@@ -194,7 +201,7 @@ export const install = async (options: WpmInstallOptions = {}) => {
 
     return { generator, importmap }
   } catch (error) {
-    console.error(error)
+    throw error
   }
 }
 
@@ -223,4 +230,23 @@ async function resolveWorkspackVersion(dependencies: Record<string, any>) {
     }
   }
   return dep
+}
+
+async function retry<T>(
+  func: () => Promise<T>,
+  numRetries: number = 3,
+  delay: number = 1000,
+): Promise<T> {
+  try {
+    const result = await func()
+
+    return result
+  } catch (err) {
+    console.log(`${colors.red('[WPM:retry]')} ${numRetries}`)
+    if (numRetries <= 0) {
+      throw err
+    }
+    await new Promise((resolve) => setTimeout(resolve, delay))
+    return retry(func, numRetries - 1, delay)
+  }
 }
